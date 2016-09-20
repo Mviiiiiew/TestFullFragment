@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.inthecheesefactory.thecheeselibrary.view.SlidingTabLayout;
 import com.strsoftware.strposn.R;
 
 
@@ -16,6 +17,7 @@ import com.strsoftware.strposn.R;
  */
 public class MainFragment extends Fragment {
     ViewPager viewPager;
+    private SlidingTabLayout slidingTabLayout;
 
     public MainFragment() {
         super();
@@ -58,8 +60,29 @@ public class MainFragment extends Fragment {
             public int getCount() {
                 return 3;
             }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+              switch (position){
+                  case 0:
+                      return "              One Fragment                 ";
+                  case 1:
+                      return "             Second Fragment               ";
+                  case 2:
+                      return  "             Third Fragment               ";
+                  default:
+                      return "";
+
+              }
+            }
         });
+        slidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.slidingTabLayout);
+        slidingTabLayout.setViewPager(viewPager);
+
+
     }
+
+
 
     @Override
     public void onStart() {

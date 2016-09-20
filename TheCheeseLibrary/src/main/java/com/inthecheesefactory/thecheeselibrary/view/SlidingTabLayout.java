@@ -59,12 +59,13 @@ public class SlidingTabLayout extends HorizontalScrollView {
          * @return return the color of the indicator used when {@code position} is selected.
          */
         int getIndicatorColor(int position);
+        int getDividerColor(int position);
 
     }
 
-    private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 16;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
+    private static final int TITLE_OFFSET_DIPS = 30;
+    private static final int TAB_VIEW_PADDING_DIPS = 20;
+    private static final int TAB_VIEW_TEXT_SIZE_SP = 25;
 
     private int mTitleOffset;
 
