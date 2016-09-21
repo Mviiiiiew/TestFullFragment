@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#76FF03"
+    android:background="#E1F5FE"
     android:orientation="vertical">
 
     <TextView
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="100dp"
+
         android:gravity="center"
         android:text="SALE PRODUCT"
-        android:textColor="#f4511e"
+        android:textColor="#FFFFFF"
         android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="#1A237E"/>
 
     <com.gc.materialdesign.views.ButtonRectangle
 
@@ -24,7 +25,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:background="#651fff"
+        android:background="#3F51B5"
         android:paddingTop="40dp"
         android:text="PageSingle"
         android:textSize="20sp" />
@@ -35,7 +36,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:background="#651fff"
+        android:background="#3F51B5"
         android:text="PageGroup"
         android:textSize="20sp" />
 
@@ -45,9 +46,10 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:background="#651fff"
+        android:background="#3F51B5"
         android:text="PageUnit"
         android:textSize="20sp" />
+
 
 
 </LinearLayout>

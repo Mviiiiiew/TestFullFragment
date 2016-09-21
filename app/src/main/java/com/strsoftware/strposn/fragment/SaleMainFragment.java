@@ -1,31 +1,25 @@
 package com.strsoftware.strposn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gc.materialdesign.views.Button;
 import com.strsoftware.strposn.R;
-import com.strsoftware.strposn.activity.SaleActivity;
-import com.strsoftware.strposn.activity.TestPrintActivity;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class ThirdFragment extends Fragment {
-   android.widget.Button btnChangPrint;
+public class SaleMainFragment extends Fragment {
 
-
-    public ThirdFragment() {
+    public SaleMainFragment() {
         super();
     }
 
-    public static ThirdFragment newInstance() {
-        ThirdFragment fragment = new ThirdFragment();
+    public static SaleMainFragment newInstance() {
+        SaleMainFragment fragment = new SaleMainFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -34,23 +28,13 @@ public class ThirdFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_third, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_sale_main, container, false);
         initInstances(rootView);
         return rootView;
     }
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
-        btnChangPrint = (android.widget.Button) rootView.findViewById(R.id.btnChangPrint);
-        btnChangPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(getContext(), TestPrintActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
     }
 
     @Override

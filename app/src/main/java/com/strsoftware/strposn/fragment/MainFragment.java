@@ -65,11 +65,11 @@ public class MainFragment extends Fragment {
             public CharSequence getPageTitle(int position) {
               switch (position){
                   case 0:
-                      return "              One Fragment                 ";
+                      return "                    One Fragment                        ";
                   case 1:
-                      return "             Second Fragment               ";
+                      return "                   Second Fragment                      ";
                   case 2:
-                      return  "             Third Fragment               ";
+                      return  "                   Third Fragment                      ";
                   default:
                       return "";
 

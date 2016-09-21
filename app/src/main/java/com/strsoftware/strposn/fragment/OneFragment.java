@@ -1,18 +1,25 @@
 package com.strsoftware.strposn.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.strsoftware.strposn.R;
+import com.strsoftware.strposn.activity.SaleActivity;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class OneFragment extends Fragment {
+    ButtonRectangle btnSingle;
+
+
 
     public OneFragment() {
         super();
@@ -35,6 +42,16 @@ public class OneFragment extends Fragment {
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+
+        btnSingle = (ButtonRectangle) rootView.findViewById(R.id.btnSingle);
+        btnSingle.setRippleSpeed(150);
+        btnSingle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getContext(), SaleActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

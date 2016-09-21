@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile project(':TheCheeseLibrary')
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    compile files('jniLibs/pos(d)_jar_v3.9.jar')
 }
