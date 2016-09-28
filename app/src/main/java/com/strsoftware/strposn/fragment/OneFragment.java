@@ -11,14 +11,16 @@ import android.widget.Button;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.strsoftware.strposn.R;
 import com.strsoftware.strposn.activity.SaleActivity;
+import com.strsoftware.strposn.activity.TestPrintActivity;
+import com.strsoftware.strposn.activity.UnitActivity;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class OneFragment extends Fragment {
+public class OneFragment extends Fragment implements View.OnClickListener {
     ButtonRectangle btnSingle;
-
+    ButtonRectangle btnUnit;
 
 
     public OneFragment() {
@@ -44,14 +46,13 @@ public class OneFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
 
         btnSingle = (ButtonRectangle) rootView.findViewById(R.id.btnSingle);
+        btnUnit = (ButtonRectangle) rootView.findViewById(R.id.btnUnit);
         btnSingle.setRippleSpeed(150);
-        btnSingle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(getContext(), SaleActivity.class);
-                startActivity(intent);
-            }
-        });
+        btnUnit.setOnClickListener(this);
+        btnSingle.setOnClickListener(this);
+
+
+
     }
 
     @Override
@@ -82,5 +83,20 @@ public class OneFragment extends Fragment {
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(btnUnit == v){
+            Intent intent =new Intent(getContext(), UnitActivity.class);
+            startActivity(intent);
+
+        }else if(btnSingle == v){
+            Intent intent =new Intent(getContext(), SaleActivity.class);
+            startActivity(intent);
+
+
+        }
+
     }
 }

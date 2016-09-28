@@ -5,21 +5,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.strsoftware.strposn.R;
+import com.strsoftware.strposn.databaseUnit.UnitDAO;
+import com.strsoftware.strposn.databaseUnit.UnitList;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class    SaleMainFragment extends Fragment {
+public class UnitFragment extends Fragment {
 
-    public SaleMainFragment() {
+    ListView lvUnit;
+
+    public UnitFragment() {
         super();
     }
 
-    public static SaleMainFragment newInstance() {
-        SaleMainFragment fragment = new SaleMainFragment();
+    public static UnitFragment newInstance() {
+        UnitFragment fragment = new UnitFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -28,13 +37,26 @@ public class    SaleMainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_sale_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_unit, container, false);
         initInstances(rootView);
+        UnitDAO unitDAO = new UnitDAO(getActivity());
+        unitDAO.open();
+        ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
+
+        ArrayAdapter<UnitList> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1,
+                myListUnit);
+
+        lvUnit.setAdapter(adapter);
+
+        unitDAO.close();
         return rootView;
+
     }
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+        lvUnit = (ListView) rootView.findViewById(R.id.lvUnit);
+
     }
 
     @Override

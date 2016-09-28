@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/STRPOSn.iml" filepath="$PROJECT_DIR$/STRPOSn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestFullFragment.iml" filepath="$PROJECT_DIR$/TestFullFragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestFullFragmentedit.iml" filepath="$PROJECT_DIR$/TestFullFragmentedit.iml" />
       <module fileurl="file://$PROJECT_DIR$/TheCheeseLibrary/TheCheeseLibrary.iml" filepath="$PROJECT_DIR$/TheCheeseLibrary/TheCheeseLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
