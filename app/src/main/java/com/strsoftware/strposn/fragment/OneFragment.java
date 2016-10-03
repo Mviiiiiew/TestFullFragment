@@ -48,6 +48,7 @@ public class OneFragment extends Fragment implements View.OnClickListener {
         btnSingle = (ButtonRectangle) rootView.findViewById(R.id.btnSingle);
         btnUnit = (ButtonRectangle) rootView.findViewById(R.id.btnUnit);
         btnSingle.setRippleSpeed(150);
+        btnUnit.setRippleSpeed(150);
         btnUnit.setOnClickListener(this);
         btnSingle.setOnClickListener(this);
 
@@ -91,12 +92,10 @@ public class OneFragment extends Fragment implements View.OnClickListener {
             Intent intent =new Intent(getContext(), UnitActivity.class);
             startActivity(intent);
 
-        }else if(btnSingle == v){
-            Intent intent =new Intent(getContext(), SaleActivity.class);
-            startActivity(intent);
+        }
 
 
         }
 
     }
-}
+

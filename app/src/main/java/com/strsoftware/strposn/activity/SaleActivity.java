@@ -18,5 +18,6 @@ public class SaleActivity extends AppCompatActivity {
                     .add(R.id.contentContainersale,SaleMainFragment.newInstance())
                     .commit();
 
+
     }
 }

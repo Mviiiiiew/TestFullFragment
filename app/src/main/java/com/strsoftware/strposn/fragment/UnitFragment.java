@@ -1,27 +1,34 @@
 package com.strsoftware.strposn.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.gc.materialdesign.views.Button;
 import com.strsoftware.strposn.R;
-import com.strsoftware.strposn.databaseUnit.UnitDAO;
-import com.strsoftware.strposn.databaseUnit.UnitList;
+import com.strsoftware.strposn.activity.SaleActivity;
+import com.strsoftware.strposn.activity.UnitActivity;
+import com.strsoftware.strposn.adapter.unitAdaper;
+import com.strsoftware.strposn.dao.UnitDAO;
+import com.strsoftware.strposn.model.UnitList;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class UnitFragment extends Fragment {
+public class UnitFragment extends Fragment implements View.OnClickListener {
 
     ListView lvUnit;
+   android.widget.Button btn_add_unit;
+
 
     public UnitFragment() {
         super();
@@ -39,23 +46,25 @@ public class UnitFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_unit, container, false);
         initInstances(rootView);
-        UnitDAO unitDAO = new UnitDAO(getActivity());
-        unitDAO.open();
-        ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
 
+
+/*
         ArrayAdapter<UnitList> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1,
-                myListUnit);
-
+        myListUnit);
         lvUnit.setAdapter(adapter);
-
-        unitDAO.close();
+*/
         return rootView;
 
     }
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+
         lvUnit = (ListView) rootView.findViewById(R.id.lvUnit);
+        btn_add_unit = (android.widget.Button) rootView.findViewById(R.id.btn_add_unit);
+        btn_add_unit.setOnClickListener(this);
+
+
 
     }
 
@@ -72,6 +81,21 @@ public class UnitFragment extends Fragment {
     /*
      * Save Instance State Here
      */
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        UnitDAO unitDAO = new UnitDAO(getActivity());
+        unitDAO.open();
+        ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
+
+
+        unitAdaper objAdapter = new unitAdaper(getContext(), R.layout.list_item_unit,myListUnit);
+        lvUnit.setAdapter(objAdapter);
+        unitDAO.close();
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -87,5 +111,15 @@ public class UnitFragment extends Fragment {
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btn_add_unit) {
+            Intent intent = new Intent(getActivity(), SaleActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 }

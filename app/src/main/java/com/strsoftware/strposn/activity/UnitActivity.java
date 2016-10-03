@@ -16,5 +16,8 @@ public class UnitActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.contentContainerUnit, UnitFragment.newInstance())
                 .commit();
+
+
     }
+
 }

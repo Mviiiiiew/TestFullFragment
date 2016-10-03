@@ -16,6 +16,8 @@ import com.strsoftware.strposn.R;
  * Created by nuuneoi on 11/16/2014.
  */
 public class MainFragment extends Fragment {
+
+
     ViewPager viewPager;
     private SlidingTabLayout slidingTabLayout;
 
@@ -33,6 +35,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         initInstances(rootView);
         return rootView;
@@ -65,11 +68,11 @@ public class MainFragment extends Fragment {
             public CharSequence getPageTitle(int position) {
               switch (position){
                   case 0:
-                      return "                    One Fragment                        ";
+                      return "    One Fragment     ";
                   case 1:
-                      return "                   Second Fragment                      ";
+                      return "   Second Fragment   ";
                   case 2:
-                      return  "                   Third Fragment                      ";
+                      return  "  Third Fragment    ";
                   default:
                       return "";
 

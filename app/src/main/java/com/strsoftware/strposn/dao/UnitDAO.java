@@ -1,9 +1,12 @@
-package com.strsoftware.strposn.databaseUnit;
+package com.strsoftware.strposn.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.strsoftware.strposn.model.UnitList;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,7 @@ public class UnitDAO {
             UnitList bean = new UnitList();
             bean.setId(cursor.getInt(0));
             bean.setUnitText(cursor.getString(1));
+            bean.setPriceText(cursor.getString(2));
             unitList.add(bean);
             cursor.moveToNext();
 
@@ -41,4 +45,15 @@ public class UnitDAO {
         cursor.close();
         return unitList;
     }
+    public void  add(UnitList unitList){
+        ContentValues values = new ContentValues();
+        values.put("unit_text",unitList.getUnitText());
+        values.put("price_text",unitList.getPriceText());
+        this.database.insert("unit_list",null,values);
+
+        //Log.d("Todo List Demo ","Add OK !!!");
+
+
+    }
+
 }
