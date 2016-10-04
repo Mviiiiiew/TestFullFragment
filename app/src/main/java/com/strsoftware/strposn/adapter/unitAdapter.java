@@ -1,8 +1,6 @@
 package com.strsoftware.strposn.adapter;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +11,15 @@ import com.strsoftware.strposn.R;
 import com.strsoftware.strposn.model.UnitList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Wasabi on 9/30/2016.
+ * Created by Wasabi on 10/3/2016.
  */
 
-public class unitAdaper  extends ArrayAdapter<UnitList>{
+public class unitAdapter extends ArrayAdapter {
 
     ArrayList<UnitList> unitList = new ArrayList<>();
-    public unitAdaper(Context context, int resource, ArrayList<UnitList> objects) {
+    public unitAdapter(Context context, int resource, ArrayList<UnitList> objects) {
         super(context, resource, objects);
         unitList = objects;
     }
@@ -34,7 +31,7 @@ public class unitAdaper  extends ArrayAdapter<UnitList>{
 
 
 
-    @NonNull
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -47,4 +44,6 @@ public class unitAdaper  extends ArrayAdapter<UnitList>{
         textView3.setText(unitList.get(position).getId()+"");
         return convertView;
     }
+
+
 }

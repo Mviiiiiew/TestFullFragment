@@ -6,15 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.gc.materialdesign.views.Button;
 import com.strsoftware.strposn.R;
 import com.strsoftware.strposn.activity.SaleActivity;
-import com.strsoftware.strposn.activity.UnitActivity;
-import com.strsoftware.strposn.adapter.unitAdaper;
+import com.strsoftware.strposn.adapter.unitAdapter;
 import com.strsoftware.strposn.dao.UnitDAO;
 import com.strsoftware.strposn.model.UnitList;
 
@@ -91,7 +87,8 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
         ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
 
 
-        unitAdaper objAdapter = new unitAdaper(getContext(), R.layout.list_item_unit,myListUnit);
+
+        unitAdapter objAdapter = new unitAdapter(getActivity(),R.layout.list_item_unit,myListUnit);
         lvUnit.setAdapter(objAdapter);
         unitDAO.close();
     }
