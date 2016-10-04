@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.strsoftware.strposn.R;
 import com.strsoftware.strposn.activity.SaleActivity;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class UnitFragment extends Fragment implements View.OnClickListener {
+public class UnitFragment extends Fragment implements View.OnClickListener  {
 
     ListView lvUnit;
    android.widget.Button btn_add_unit;
@@ -88,9 +90,19 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
 
 
 
-        unitAdapter objAdapter = new unitAdapter(getActivity(),R.layout.list_item_unit,myListUnit);
+        final unitAdapter objAdapter = new unitAdapter(getActivity(),myListUnit);
         lvUnit.setAdapter(objAdapter);
         unitDAO.close();
+
+        lvUnit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(),String.valueOf(objAdapter.getItemId(position)),
+                        Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
     }
 
     @Override
