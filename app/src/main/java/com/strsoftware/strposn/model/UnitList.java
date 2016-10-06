@@ -1,5 +1,7 @@
 package com.strsoftware.strposn.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Wasabi on 9/27/2016.
  */

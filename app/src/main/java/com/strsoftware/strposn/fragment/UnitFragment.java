@@ -1,8 +1,10 @@
 package com.strsoftware.strposn.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class UnitFragment extends Fragment implements View.OnClickListener  {
 
     ListView lvUnit;
+
    android.widget.Button btn_add_unit;
 
 
@@ -44,6 +47,8 @@ public class UnitFragment extends Fragment implements View.OnClickListener  {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_unit, container, false);
         initInstances(rootView);
+
+
 
 
 /*
@@ -84,17 +89,65 @@ public class UnitFragment extends Fragment implements View.OnClickListener  {
     public void onResume() {
 
         super.onResume();
-        UnitDAO unitDAO = new UnitDAO(getActivity());
+        final UnitDAO unitDAO = new UnitDAO(getActivity());
         unitDAO.open();
-        ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
-
+        final ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
+        unitDAO.close();
 
 
         final unitAdapter objAdapter = new unitAdapter(getActivity(),myListUnit);
         lvUnit.setAdapter(objAdapter);
-        unitDAO.close();
+
+        lvUnit.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+           @Override
+           public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                           // Toast.makeText(getActivity(),"Click Long Successfully",Toast.LENGTH_SHORT).show();
+
+
+
+               AlertDialog.Builder alertDialogder  = new AlertDialog.Builder(getActivity());
+               alertDialogder.setTitle(" Delete Yes / No ?" );
+               //alertDialogder.setMessage("Do yo want Delete Item "+objAdapter.getUnitName(position));
+               alertDialogder.setMessage("Do yo want Delete Item "+((UnitList)objAdapter.getItem(position)).getUnitText());
+               alertDialogder.setCancelable(false);
+               alertDialogder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       dialog.dismiss();
+
+                   }
+               });
+               alertDialogder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+
+                       UnitList unitlist = new UnitList();
+                       unitlist.setId((int) objAdapter.getItemId(position));
+                       UnitDAO unitListDAODel  = new UnitDAO(getActivity());
+                       unitListDAODel.open();
+                       unitListDAODel.delete(unitlist);
+                       unitListDAODel.close();
+
+                      // dialog.dismiss();
+
+
+
+                   }
+               });
+               alertDialogder.show();
+
+
+               return false;
+           }
+       });
 
         lvUnit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(),"Click Short Successfully"+"   "+ objAdapter.getItemId(position),Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*lvUnit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(),String.valueOf(objAdapter.getItemId(position)),
@@ -102,8 +155,12 @@ public class UnitFragment extends Fragment implements View.OnClickListener  {
 
 
             }
-        });
+        });*/
     }
+
+
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

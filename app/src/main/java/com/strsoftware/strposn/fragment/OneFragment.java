@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.strsoftware.strposn.R;
+import com.strsoftware.strposn.activity.ProductActivity;
 import com.strsoftware.strposn.activity.SaleActivity;
 import com.strsoftware.strposn.activity.TestPrintActivity;
 import com.strsoftware.strposn.activity.UnitActivity;
@@ -19,8 +20,9 @@ import com.strsoftware.strposn.activity.UnitActivity;
  * Created by nuuneoi on 11/16/2014.
  */
 public class OneFragment extends Fragment implements View.OnClickListener {
-    ButtonRectangle btnSingle;
+    ButtonRectangle btnProduct;
     ButtonRectangle btnUnit;
+
 
 
     public OneFragment() {
@@ -45,12 +47,12 @@ public class OneFragment extends Fragment implements View.OnClickListener {
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
 
-        btnSingle = (ButtonRectangle) rootView.findViewById(R.id.btnSingle);
+        btnProduct = (ButtonRectangle) rootView.findViewById(R.id.btnProduct);
         btnUnit = (ButtonRectangle) rootView.findViewById(R.id.btnUnit);
-        btnSingle.setRippleSpeed(150);
+        btnProduct.setRippleSpeed(150);
         btnUnit.setRippleSpeed(150);
         btnUnit.setOnClickListener(this);
-        btnSingle.setOnClickListener(this);
+        btnProduct.setOnClickListener(this);
 
 
 
@@ -88,14 +90,20 @@ public class OneFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(btnUnit == v){
-            Intent intent =new Intent(getContext(), UnitActivity.class);
+        if (btnUnit == v) {
+            Intent intent = new Intent(getContext(), UnitActivity.class);
             startActivity(intent);
 
-        }
+        } else if   (btnProduct == v){
+
+                Intent intent = new Intent(getContext(), ProductActivity.class);
+                startActivity(intent);
+
+
 
 
         }
+    }
 
     }
 

@@ -4,35 +4,33 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.Button;
 import com.strsoftware.strposn.R;
-import com.strsoftware.strposn.dao.UnitDAO;
-import com.strsoftware.strposn.model.UnitList;
+import com.strsoftware.strposn.dao.ProductDAO;
+import com.strsoftware.strposn.model.ProductList;
 import com.strsoftware.strposn.util.Util_String;
+
+import static com.strsoftware.strposn.R.id.txt_product_name;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class SaleMainFragment extends Fragment implements View.OnClickListener {
-    EditText txt_name_unit;
-    EditText txt_name_price;
-    android.widget.Button btn_add;
-
-
-    public SaleMainFragment() {
+public class ProductAddFragment extends Fragment implements View.OnClickListener {
+    Button btn_product_add;
+    EditText txt_product_name;
+    public ProductAddFragment() {
         super();
     }
 
-    public static SaleMainFragment newInstance() {
-        SaleMainFragment fragment = new SaleMainFragment();
+    public static ProductAddFragment newInstance() {
+        ProductAddFragment fragment = new ProductAddFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -41,19 +39,16 @@ public class SaleMainFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_sale_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_add_product, container, false);
         initInstances(rootView);
-
         return rootView;
     }
 
     private void initInstances(View rootView) {
-        btn_add = (android.widget.Button) rootView.findViewById(R.id.btn_add);
-        txt_name_price = (EditText) rootView.findViewById(R.id.txt_name_price);
-        txt_name_unit = (EditText) rootView.findViewById(R.id.txt_name_unit);
-        btn_add.setOnClickListener(this);
-
         // Init 'View' instance(s) with rootView.findViewById here
+        btn_product_add = (Button)rootView.findViewById(R.id.btn_product_add);
+        txt_product_name = (EditText)rootView.findViewById(R.id.txt_product_name);
+    btn_product_add.setOnClickListener(this);
     }
 
     @Override
@@ -88,19 +83,18 @@ public class SaleMainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int ex=0 ;
-        if (v == btn_add) {
-            if(txt_name_unit.getText().toString().trim().replaceAll(" ","").matches("")){
-                Toast.makeText(getContext(),"  Not Name Unit",Toast.LENGTH_SHORT).show();
-            }else{
-                UnitList unitList = new UnitList();
-                unitList.setUnitText(txt_name_unit.getText().toString());
-                unitList.setPriceText(Util_String.getGennerlateString(txt_name_price.getText().toString()));
-                UnitDAO unitDAO = new UnitDAO(getContext());
-                unitDAO.open();
-                ex = unitDAO.add(unitList);
-                unitDAO.close();
-                if(ex == 0) {
+        int ex = 0;
+        if (v == btn_product_add) {
+            if (txt_product_name.getText().toString().trim().replaceAll(" ", "").matches("")) {
+                Toast.makeText(getContext(), "  Not Name Product", Toast.LENGTH_SHORT).show();
+            } else {
+                ProductList productList = new ProductList();
+                productList.setProductText(Util_String.getGennerlateString(txt_product_name.getText().toString()));
+                ProductDAO productDAO = new ProductDAO(getContext());
+                productDAO.open();
+                ex = productDAO.add(productList);
+                productDAO.close();
+                if (ex == 0) {
                     AlertDialog.Builder alertDialogder = new AlertDialog.Builder(getContext());
 
                     alertDialogder.setMessage("ซ้ำนะ");
@@ -114,19 +108,10 @@ public class SaleMainFragment extends Fragment implements View.OnClickListener {
                     AlertDialog alertDialog = alertDialogder.create();
                     // show alert
                     alertDialog.show();
-                }else{
+                } else {
                     getActivity().finish();
                 }
             }
-            //getActivity().finish();
-
-
         }
-        //Log.d("Database Status:",ex+"");
-
     }
-
-
-
-
 }

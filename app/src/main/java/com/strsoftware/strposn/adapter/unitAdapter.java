@@ -44,6 +44,9 @@ public class unitAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return myUnitList.get(position).getId();
     }
+    public String getUnitName(int position){
+        return myUnitList.get(position).getUnitText();
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -20,6 +20,10 @@
         <activity android:name=".activity.TestPrintActivity"/>
         <activity android:name=".activity.UnitActivity">
         </activity>
+        <activity android:name=".activity.ProductActivity">
+        </activity>
+        <activity android:name=".activity.ProductAddActivity">
+        </activity>
     </application>
 
 </manifest>
