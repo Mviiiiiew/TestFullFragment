@@ -23,7 +23,7 @@ import com.strsoftware.strposn.util.Util_String;
  */
 public class SaleMainFragment extends Fragment implements View.OnClickListener {
     EditText txt_name_unit;
-    EditText txt_name_price;
+
     android.widget.Button btn_add;
 
 
@@ -49,7 +49,7 @@ public class SaleMainFragment extends Fragment implements View.OnClickListener {
 
     private void initInstances(View rootView) {
         btn_add = (android.widget.Button) rootView.findViewById(R.id.btn_add);
-        txt_name_price = (EditText) rootView.findViewById(R.id.txt_name_price);
+
         txt_name_unit = (EditText) rootView.findViewById(R.id.txt_name_unit);
         btn_add.setOnClickListener(this);
 
@@ -94,8 +94,7 @@ public class SaleMainFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(),"  Not Name Unit",Toast.LENGTH_SHORT).show();
             }else{
                 UnitList unitList = new UnitList();
-                unitList.setUnitText(txt_name_unit.getText().toString());
-                unitList.setPriceText(Util_String.getGennerlateString(txt_name_price.getText().toString()));
+                unitList.setUnitText(Util_String.getGennerlateString(txt_name_unit.getText().toString()));
                 UnitDAO unitDAO = new UnitDAO(getContext());
                 unitDAO.open();
                 ex = unitDAO.add(unitList);

@@ -38,7 +38,6 @@ import java.util.ArrayList;
             UnitList bean = new UnitList();
             bean.setId(cursor.getInt(0));
             bean.setUnitText(cursor.getString(1));
-            bean.setPriceText(cursor.getString(2));
             unitList.add(bean);
             cursor.moveToNext();
 
@@ -59,7 +58,6 @@ import java.util.ArrayList;
         }else{
             ContentValues values = new ContentValues();
             values.put("unit_text",unitList.getUnitText());
-            values.put("price_text",unitList.getPriceText());
             this.database.insert("unit_list",null,values);
             return 1;
         }

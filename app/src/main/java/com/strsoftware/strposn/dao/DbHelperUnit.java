@@ -18,7 +18,6 @@ public class DbHelperUnit extends SQLiteOpenHelper {
     private static final String tableUnitCreateSQL = "CREATE TABLE unit_list("
             +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
             +"unit_text TEXT NOT NULL,"
-            +"price_text TEXT NOT NULL,"
             +"delete_flag TEXT DEFAULT 'N'"
             +");";
     private static final String tableProductCreateSQL = "CREATE TABLE product_list("

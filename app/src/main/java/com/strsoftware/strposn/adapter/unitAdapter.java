@@ -44,20 +44,16 @@ public class unitAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return myUnitList.get(position).getId();
     }
-    public String getUnitName(int position){
-        return myUnitList.get(position).getUnitText();
-    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         v = inflater.inflate(R.layout.list_item_unit,null);
         TextView textview = (TextView) v.findViewById(R.id.txt_unit_name);
-        TextView textview2 = (TextView) v.findViewById(R.id.txt_price);
         TextView textView3 = (TextView)  v.findViewById(R.id.txt_id);
         UnitList unitList = myUnitList.get(position);
         textview.setText(unitList.getUnitText());
-        textview2.setText(unitList.getPriceText());
         textView3.setText(unitList.getId()+"");
 
         return v;

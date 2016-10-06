@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class UnitList {
     private int id;
     private String unitText;
-    private String priceText;
+
 
     public int getId() {
         return id;
@@ -27,11 +27,5 @@ public class UnitList {
         this.unitText = unitText;
     }
 
-    public String getPriceText() {
-        return priceText;
-    }
 
-    public void setPriceText(String priceText) {
-        this.priceText = priceText;
-    }
 }
