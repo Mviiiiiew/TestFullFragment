@@ -50,8 +50,10 @@ public class productAdapter extends BaseAdapter {
         v = inflater.inflate(R.layout.list_item_product,null);
         TextView textview = (TextView) v.findViewById(R.id.txt_name_product);
         TextView textView2 = (TextView)  v.findViewById(R.id.txt_id_producr);
+        TextView textView3 = (TextView) v.findViewById(R.id.txt_name_unit);
         ProductList productList = myProductList.get(position);
         textview.setText(productList.getProductText());
+        textView3.setText(productList.getUnitList().getUnitText());
         textView2.setText(productList.getId()+"");
         return v;
     }

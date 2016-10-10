@@ -97,6 +97,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         productListDAODel.delete(productList);
                         productListDAODel.close();
 
+                        myProductList.remove(position);
+                        objAdapter.notifyDataSetChanged();
                         // dialog.dismiss();
 
 

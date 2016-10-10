@@ -10,6 +10,13 @@ public class UnitList {
     private int id;
     private String unitText;
 
+    public UnitList(){
+
+    }
+    public  UnitList(int id,String unitText){
+        this.id = id;
+        this.unitText = unitText;
+    }
 
     public int getId() {
         return id;

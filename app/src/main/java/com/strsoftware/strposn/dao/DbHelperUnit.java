@@ -16,13 +16,14 @@ public class DbHelperUnit extends SQLiteOpenHelper {
 
 
     private static final String tableUnitCreateSQL = "CREATE TABLE unit_list("
-            +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            +"id_unit INTEGER PRIMARY KEY AUTOINCREMENT,"
             +"unit_text TEXT NOT NULL,"
             +"delete_flag TEXT DEFAULT 'N'"
             +");";
     private static final String tableProductCreateSQL = "CREATE TABLE product_list("
-            +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            +"id_product INTEGER PRIMARY KEY AUTOINCREMENT,"
             +"product_text TEXT NOT NULL,"
+            +"id_unit INTEGER,"
             +"delete_flag TEXT DEFAULT 'N'"
             +");";
 

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import com.strsoftware.strposn.model.ProductList;
+import com.strsoftware.strposn.model.UnitList;
 
 import java.util.ArrayList;
 
@@ -30,13 +31,15 @@ public class ProductDAO {
 
         ArrayList<ProductList> productList = new ArrayList<>();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM product_list where delete_flag = 'N';",null);
+        Cursor cursor = database.rawQuery("select pl.id_product,pl.product_text,pl.id_unit,ul.unit_text from product_list pl " +
+                "inner join  unit_list ul on pl.id_unit = ul.id_unit and   ul.delete_flag = 'N' " +
+                "where pl.delete_flag = 'N';",null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             ProductList bean = new ProductList();
             bean.setId(cursor.getInt(0));
             bean.setProductText(cursor.getString(1));
-
+            bean.setUnitList(new UnitList(cursor.getInt(2),cursor.getString(3)));
             productList.add(bean);
             cursor.moveToNext();
 
@@ -57,7 +60,7 @@ public class ProductDAO {
         }else{
             ContentValues values = new ContentValues();
             values.put("product_text",productList.getProductText());
-
+            values.put("id_unit",productList.getUnitList().getId());
             this.database.insert("product_list",null,values);
             return 1;
         }
@@ -69,7 +72,7 @@ public class ProductDAO {
     public void  delete(ProductList productList){
         //UnitList delUnitlist = unitList;
         //String sqlText = "DELETE FROM unit_list WHERE id=" + delUnitlist.getId();
-        this.database.execSQL("UPDATE product_list set delete_flag = 'Y' where id = "+ productList.getId());
+        this.database.execSQL("UPDATE product_list set delete_flag = 'Y' where id_product = "+ productList.getId());
 
     }
 }

@@ -30,7 +30,7 @@ import static com.strsoftware.strposn.R.id.txt_product_name;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class ProductAddFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ProductAddFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
     private UnitDAO mUnitDAO;
 
 
@@ -74,6 +74,7 @@ public class ProductAddFragment extends Fragment implements View.OnClickListener
         spinner_unit = (Spinner)rootView.findViewById(R.id.spinner_unit);
         btn_product_add = (Button)rootView.findViewById(R.id.btn_product_add);
         txt_product_name = (EditText)rootView.findViewById(R.id.txt_product_name);
+        spinner_unit.setOnItemSelectedListener(this);
         btn_product_add.setOnClickListener(this);
     }
 
@@ -116,6 +117,7 @@ public class ProductAddFragment extends Fragment implements View.OnClickListener
             } else {
                 ProductList productList = new ProductList();
                 productList.setProductText(Util_String.getGennerlateString(txt_product_name.getText().toString()));
+                productList.setUnitList(new UnitList(mSelectedUnit.getId(),""));
                 ProductDAO productDAO = new ProductDAO(getContext());
                 productDAO.open();
                 ex = productDAO.add(productList);
@@ -143,8 +145,17 @@ public class ProductAddFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mSelectedUnit = (UnitList) mSpinnerUnitAdapter.getItem(position);
 
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        mSelectedUnit = (UnitList) mSpinnerUnitAdapter.getItem(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

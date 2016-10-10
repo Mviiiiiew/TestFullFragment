@@ -127,6 +127,8 @@ public class UnitFragment extends Fragment implements View.OnClickListener  {
                        unitListDAODel.open();
                        unitListDAODel.delete(unitlist);
                        unitListDAODel.close();
+                       myListUnit.remove(position);
+                       objAdapter.notifyDataSetChanged();
 
                       // dialog.dismiss();
 

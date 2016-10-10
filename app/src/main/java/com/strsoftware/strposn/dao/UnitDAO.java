@@ -69,7 +69,7 @@ import java.util.ArrayList;
     public void  delete(UnitList unitList){
         //UnitList delUnitlist = unitList;
         //String sqlText = "DELETE FROM unit_list WHERE id=" + delUnitlist.getId();
-        this.database.execSQL("UPDATE unit_list set delete_flag = 'Y' where id = "+ unitList.getId());
+        this.database.execSQL("UPDATE unit_list set delete_flag = 'Y' where id_unit = "+ unitList.getId());
 
     }
 

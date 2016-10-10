@@ -5,9 +5,17 @@ package com.strsoftware.strposn.model;
  */
 
 public class ProductList {
+    public UnitList getUnitList() {
+        return unitList;
+    }
+
+    public void setUnitList(UnitList unitList) {
+        this.unitList = unitList;
+    }
+
     private int id;
     private String productText;
-
+    private UnitList unitList;
     public int getId() {
         return id;
     }
