@@ -3,23 +3,15 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"    >
-
-    <TextView
-        android:id="@+id/txt_header"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:text="All UNIT"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white" />
+<include layout="@layout/toolbar"
+         android:id="@+id/my_toolbar"/>
 
     <Button
+
         android:id="@+id/btn_add_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_header"
+        android:layout_below="@+id/my_toolbar"
         android:text="ADD unit  "
         />
 

@@ -46,6 +46,25 @@ import java.util.ArrayList;
         cursor.close();
         return unitList;
     }
+
+    public   ArrayList<UnitList> searchUnit(String searchUnit){
+        ArrayList<UnitList> mItem = new   ArrayList<>();
+        String query ="Select * from unit_list where unit_text like "+ "'%" + searchUnit + "%'";
+        Cursor cursor = this.database.rawQuery(query,null);
+        ArrayList<UnitList> unitTerms = new ArrayList<UnitList>();
+        if(cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(0);
+                String word = cursor.getString(cursor.getColumnIndexOrThrow("unit_text"));
+                mItem.add(new UnitList(id, word));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return mItem;
+    }
+
+
+
     public int  add(UnitList unitList){
         String query = "Select count(*) from unit_list where unit_text = ? AND delete_flag = ?";
         SQLiteStatement stmt = database.compileStatement(query);
@@ -71,6 +90,15 @@ import java.util.ArrayList;
         //String sqlText = "DELETE FROM unit_list WHERE id=" + delUnitlist.getId();
         this.database.execSQL("UPDATE unit_list set delete_flag = 'Y' where id_unit = "+ unitList.getId());
 
+    }
+
+    public  Cursor SearchUnit(String searchTerm){
+
+        String query = "SELECT column FROM table WHERE column=%s";
+        String q = String.format(query, "\""+ searchTerm + "%\"");
+        Cursor c = database.rawQuery(q, null);
+
+        return c;
     }
 
 }
