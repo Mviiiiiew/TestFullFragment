@@ -91,14 +91,13 @@ import java.util.ArrayList;
         this.database.execSQL("UPDATE unit_list set delete_flag = 'Y' where id_unit = "+ unitList.getId());
 
     }
+public Cursor getSearchUnit(String searchUnit){
+    SQLiteDatabase db = dbHelperUnit.getWritableDatabase();
+    String[] columns = {"id_unit","unit_text"};
+    Cursor cur = db.query("unit_list",columns,"name LIKE?",new String[]{"%" +searchUnit+"%" },null,null
+    ,null,null);
+    return cur;
+}
 
-    public  Cursor SearchUnit(String searchTerm){
-
-        String query = "SELECT column FROM table WHERE column=%s";
-        String q = String.format(query, "\""+ searchTerm + "%\"");
-        Cursor c = database.rawQuery(q, null);
-
-        return c;
-    }
 
 }

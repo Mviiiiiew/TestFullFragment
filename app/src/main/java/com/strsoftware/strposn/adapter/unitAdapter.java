@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.strsoftware.strposn.R;
@@ -18,14 +20,19 @@ import java.util.ArrayList;
  * Created by Wasabi on 10/3/2016.
  */
 
-public class unitAdapter extends BaseAdapter {
+public class unitAdapter extends BaseAdapter implements Filterable {
     private  static Activity activity;
     private static LayoutInflater inflater;
-    ArrayList<UnitList> myUnitList;
+
+     ArrayList<UnitList> myUnitList;
+     CustomFilter filter;
+    ArrayList<UnitList>  filterList;
 
     public unitAdapter(Activity activity,ArrayList<UnitList> myUnitList) {
         this.myUnitList = myUnitList;
         this.activity = activity;
+        this.filterList = myUnitList;
+
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -49,7 +56,9 @@ public class unitAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        v = inflater.inflate(R.layout.list_item_unit,null);
+        if(convertView == null){
+            v = inflater.inflate(R.layout.list_item_unit,null);
+        }
         TextView textview = (TextView) v.findViewById(R.id.txt_unit_name);
         TextView textView3 = (TextView)  v.findViewById(R.id.txt_id);
         UnitList unitList = myUnitList.get(position);
@@ -59,33 +68,51 @@ public class unitAdapter extends BaseAdapter {
         return v;
     }
 
-    /*ArrayList<UnitList> unitList = new ArrayList<>();
-    public unitAdapter(Context context, int resource, ArrayList<UnitList> objects) {
-        super(context, resource, objects);
-        unitList = objects;
+    @Override
+    public Filter getFilter() {
+
+        if(filter == null){
+            filter = new CustomFilter();
+        }
+
+
+        return filter;
     }
 
-    @Override
-    public int getCount() {
-        return super.getCount();
+
+
+    class CustomFilter extends Filter{
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            if(constraint != null && constraint.length()>0)
+            {
+                constraint = constraint.toString().toUpperCase();
+
+                ArrayList<UnitList> filters = new ArrayList<>();
+                for(int i=0;i<filterList.size();i++)
+                {
+                    if(filterList.get(i).getUnitText().toUpperCase().contains(constraint)){
+                        UnitList u=new UnitList(filterList.get(i).getId(),filterList.get(i).getUnitText());
+                        filters.add(u);
+                    }
+                }
+                results.count = filters.size();
+                results.values=filters;
+            }else
+            {
+                results.count = filterList.size();
+                results.values=filterList;
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            myUnitList = (ArrayList<UnitList>) results.values;
+            notifyDataSetChanged();
+        }
     }
-
-
-
-
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.list_item_unit,null);
-        TextView textview = (TextView) convertView.findViewById(R.id.txt_unit_name);
-        TextView textview2 = (TextView) convertView.findViewById(R.id.txt_price);
-        TextView textView3 = (TextView)  convertView.findViewById(R.id.txt_id);
-        textview.setText(unitList.get(position).getUnitText());
-        textview2.setText(unitList.get(position).getPriceText());
-        textView3.setText(unitList.get(position).getId()+"");
-        return convertView;
-    }*/
 
 
 }

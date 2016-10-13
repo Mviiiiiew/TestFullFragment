@@ -33,7 +33,7 @@ public class UnitActivity extends AppCompatActivity {
 
     }
 
-  @Override
+  /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.main_menu,menu);
@@ -43,5 +43,5 @@ public class UnitActivity extends AppCompatActivity {
 
 
         return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 }
