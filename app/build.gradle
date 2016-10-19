@@ -29,4 +29,6 @@ dependencies {
     compile project(':TheCheeseLibrary')
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile files('jniLibs/pos(d)_jar_v3.9.jar')
+    compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 }

@@ -1,6 +1,7 @@
 package com.strsoftware.strposn.fragment;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,6 +26,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.gc.materialdesign.widgets.Dialog;
 import com.strsoftware.strposn.R;
 import com.strsoftware.strposn.activity.MainActivity;
 import com.strsoftware.strposn.activity.SaleActivity;
@@ -136,7 +138,8 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
 
 
         lvUnit.setAdapter(adapter);
-        lvUnit.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lvUnit.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder alertDialogder = new AlertDialog.Builder(getActivity());
@@ -160,7 +163,6 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
                         unitListDAODel.delete(unitlist);
                         unitListDAODel.close();
                         myListUnit.remove(position);
-
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -174,6 +176,7 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*Toast.makeText(getActivity(), "Click Short Successfully" + "   "
                         + adapter.getItemId(position), Toast.LENGTH_SHORT).show();*/
+
                 AlertDialog.Builder alertDialogder = new AlertDialog.Builder(getActivity());
                 alertDialogder.setTitle("Unit Name");
                 alertDialogder.setMessage(((UnitList) adapter.getItem(position)).getUnitText());
@@ -216,8 +219,10 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == btn_add_unit) {
+
             Intent intent = new Intent(getActivity(), SaleActivity.class);
             startActivity(intent);
+
         }
 
 
