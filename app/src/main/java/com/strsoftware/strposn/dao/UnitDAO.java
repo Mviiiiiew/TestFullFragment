@@ -47,21 +47,21 @@ import java.util.ArrayList;
         return unitList;
     }
 
-    public   ArrayList<UnitList> searchUnit(String searchUnit){
-        ArrayList<UnitList> mItem = new   ArrayList<>();
-        String query ="Select * from unit_list where unit_text like "+ "'%" + searchUnit + "%'";
-        Cursor cursor = this.database.rawQuery(query,null);
-        ArrayList<UnitList> unitTerms = new ArrayList<UnitList>();
-        if(cursor.moveToFirst()){
-            do{
-                int id = cursor.getInt(0);
-                String word = cursor.getString(cursor.getColumnIndexOrThrow("unit_text"));
-                mItem.add(new UnitList(id, word));
-            }while(cursor.moveToNext());
+    public String SearchID(String ID){
+       String return_text = "No data Unit";
+        Cursor cursor = database.rawQuery("SELECT * FROM unit_list where delete_flag = 'N' and id_unit ='"+ID+"';",null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+         return_text = cursor.getString(1);
+
+            cursor.moveToNext();
         }
         cursor.close();
-        return mItem;
+
+        return return_text ;
     }
+
+
 
 
 
@@ -86,18 +86,11 @@ import java.util.ArrayList;
 
     }
     public void  delete(UnitList unitList){
-        //UnitList delUnitlist = unitList;
-        //String sqlText = "DELETE FROM unit_list WHERE id=" + delUnitlist.getId();
+
         this.database.execSQL("UPDATE unit_list set delete_flag = 'Y' where id_unit = "+ unitList.getId());
 
     }
-public Cursor getSearchUnit(String searchUnit){
-    SQLiteDatabase db = dbHelperUnit.getWritableDatabase();
-    String[] columns = {"id_unit","unit_text"};
-    Cursor cur = db.query("unit_list",columns,"name LIKE?",new String[]{"%" +searchUnit+"%" },null,null
-    ,null,null);
-    return cur;
-}
+
 
 
 }

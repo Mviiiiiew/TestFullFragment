@@ -48,6 +48,7 @@ public class ThirdFragment extends Fragment {
                 Intent intent =new Intent(getContext(), TestPrintActivity.class);
                 startActivity(intent);
 
+
             }
         });
 

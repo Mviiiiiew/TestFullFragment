@@ -13,17 +13,22 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.widgets.Dialog;
@@ -36,18 +41,27 @@ import com.strsoftware.strposn.dao.DbHelperUnit;
 import com.strsoftware.strposn.dao.UnitDAO;
 import com.strsoftware.strposn.model.UnitList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class UnitFragment extends Fragment implements View.OnClickListener {
+    private  ArrayList<String> arrayList;
+    private  ArrayAdapter<String> adapterx;
+
     SearchView searchUnit;
     ListView lvUnit;
     android.widget.Button btn_add_unit;
+    EditText edit_search;
+    TextView Textview;
     Toolbar my_toolbar;
-
+    ListView lvaddunit;
+    String[] item={};
+    Button btn_search;
 
     public UnitFragment() {
         super();
@@ -61,24 +75,63 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_main_unit, container, false);
+
         initInstances(rootView);
-        final UnitDAO unitDAO = new UnitDAO(getActivity());
-        unitDAO.open();
-        final ArrayList<UnitList> mListUnit = unitDAO.getAllUnitList();
-        unitDAO.close();
-        final unitAdapter adapter = new unitAdapter(getActivity(), mListUnit);
+        arrayList = new ArrayList<>(Arrays.asList(item));
+               adapterx =new ArrayAdapter<String>(getActivity(),R.layout.list_add_unit,R.id.txtitem,arrayList);
+        lvaddunit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alertDialogder = new AlertDialog.Builder(getActivity());
+                alertDialogder.setTitle("Unit Name");
+                alertDialogder.setMessage(adapterx.getItem(position));
+                alertDialogder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        arrayList.remove(position);
+                        adapterx.notifyDataSetChanged();
+                        dialog.dismiss();
+
+                    }
+                });
+                alertDialogder.show();
+            }
+        });
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList.clear();
+                adapterx.notifyDataSetChanged();
+            }
+        });
+        edit_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                UnitDAO unitDAO = new UnitDAO(getActivity());
+
+                if (actionId == EditorInfo.IME_NULL  && event.getAction() == KeyEvent.ACTION_DOWN){
+                    if(edit_search.getText().equals("") ){
+                        Toast.makeText(getActivity(),"No Unit",Toast.LENGTH_SHORT).show();
+
+                    }else {
+                        unitDAO.open();
+                        arrayList.add(unitDAO.SearchID(edit_search.getText().toString()));
+                        unitDAO.close();
+                        lvaddunit.setAdapter(adapterx);
+                        adapterx.notifyDataSetChanged();
+                        edit_search.setText("");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
 
-
-/*
-        ArrayAdapter<UnitList> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1,
-        myListUnit);
-        lvUnit.setAdapter(adapter);
-*/
-        return rootView;
+               return rootView;
 
     }
 
@@ -88,10 +141,11 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
         lvUnit = (ListView) rootView.findViewById(R.id.lvUnit);
         btn_add_unit = (android.widget.Button) rootView.findViewById(R.id.btn_add_unit);
         btn_add_unit.setOnClickListener(this);
-
+        lvaddunit = (ListView)rootView.findViewById(R.id.lvaddunit);
+        edit_search = (EditText) rootView.findViewById(R.id.edit_search);
         searchUnit = (SearchView) rootView.findViewById(R.id.searchUnit);
-        // ((AppCompatActivity) getActivity()).setSupportActionBar(my_toolbar);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.my_tb_title);
+
+        btn_search = (Button)rootView.findViewById(R.id.btn_search);
 
 
     }
@@ -119,27 +173,29 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
         final UnitDAO unitDAO = new UnitDAO(getActivity());
         unitDAO.open();
         final ArrayList<UnitList> myListUnit = unitDAO.getAllUnitList();
-        unitDAO.close();
         final unitAdapter adapter = new unitAdapter(getActivity(), myListUnit);
+        unitDAO.close();
 
 
         searchUnit.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+
+                return true;
             }
+
             @Override
             public boolean onQueryTextChange(String query) {
                 adapter.getFilter().filter(query);
 
                 return false;
             }
+
         });
 
 
         lvUnit.setAdapter(adapter);
-        lvUnit.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
+        lvUnit.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder alertDialogder = new AlertDialog.Builder(getActivity());
@@ -191,9 +247,6 @@ public class UnitFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-
-
-
 
 
     }
